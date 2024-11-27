@@ -37,6 +37,8 @@ export class AuthController {
         token: token.token,
       });
 
+      console.log(token)
+
       await Promise.allSettled([user.save(), token.save()]);
 
       res.send("Cuenta creada, revisa tu email para confirmarla");
@@ -61,7 +63,8 @@ export class AuthController {
 
       await Promise.allSettled([user.save(), tokenExists.deleteOne()]);
 
-      res.send("Cuenta confirmada correctametne");
+      res.send("Cuenta confirmada. Redirigiendo al inicio de sesión...");
+
     } catch (error) {
       res.status(500).json({ error: "Hubo un error" });
     }
